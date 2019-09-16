@@ -1,4 +1,4 @@
-package com.example.InventoryManagement.DOA;
+package com.example.InventoryManagement.DAO;
 
 import java.util.List;
 
