@@ -1,4 +1,4 @@
-package Configs;
+package com.example.InventoryManagement.Configs;
 
 /*
  *  For any incoming request, this Filter class gets executed. It checks if the request has a valid JWT token. 
@@ -36,8 +36,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
-
+		
 		final String requestTokenHeader = request.getHeader("Authorization");
+		
 		
 		String username = null;
 		String jwtToken = null;
@@ -45,6 +46,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
 			jwtToken = requestTokenHeader.substring(7);
 			try {
+				System.out.println("requestTokenHeader:: "+requestTokenHeader);
 			username = jwtTokenUtil.getUsernameFromToken(jwtToken);
 			}catch(IllegalArgumentException e) {
 				System.out.println("Unable to get JWT Token");

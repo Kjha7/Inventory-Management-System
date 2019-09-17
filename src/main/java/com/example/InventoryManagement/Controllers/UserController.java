@@ -10,13 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.authentication.AuthenticationManager;
 
+import com.example.InventoryManagement.Configs.JwtTokenUtil;
 import com.example.InventoryManagement.Models.User;
 import com.example.InventoryManagement.Models.Request.LoginRequest;
-import com.example.InventoryManagement.Models.Request.UserRequest;
-import com.example.InventoryManagement.Models.Request.UserResponse;
+import com.example.InventoryManagement.Models.Request.JwtResponse;
 import com.example.InventoryManagement.Services.UserServices;
-
-import Configs.JwtTokenUtil;
 
 /*
  * Login, logut using jwt;
@@ -24,8 +22,8 @@ import Configs.JwtTokenUtil;
 
 
 @RestController
-@CrossOrigin
-@RequestMapping("user")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/user")
 public class UserController {
 	
 	@Autowired
@@ -35,15 +33,15 @@ public class UserController {
 	@Autowired
 	public AuthenticationManager authenticationManager;
 	
-	@RequestMapping(value= "login", method = RequestMethod.POST)
+	@RequestMapping(value= "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> Login(@RequestBody LoginRequest loginRequest) throws Exception{
 		userServices.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
 		User user = userServices.loadUserByUsername(loginRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(user);	
-		return ResponseEntity.ok(new UserResponse(token));
+		return ResponseEntity.ok(new JwtResponse(token));
 	}
 	
-	@RequestMapping(value= "signup", method= RequestMethod.POST)
+	@RequestMapping(value= "/signup", method= RequestMethod.POST)
 	public ResponseEntity<?> Signup(@RequestBody User userRequest){
 		try {
 		userServices.addUser(userRequest);
@@ -51,6 +49,17 @@ public class UserController {
 		}catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
+		
+	}
+	
+	@RequestMapping(value="/", method= RequestMethod.GET)
+	public ResponseEntity<?> getUser(){
+		try {
+			return ResponseEntity.ok(userServices.getAllUsers());
+		}catch(Exception e) {
+			System.out.println("Error in retrieving Users: "+e);
+		}
+		return null;
 		
 	}
 

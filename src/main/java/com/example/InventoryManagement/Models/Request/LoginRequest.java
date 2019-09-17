@@ -3,8 +3,8 @@ package com.example.InventoryManagement.Models.Request;
 public class LoginRequest {
 	public String Username;
 	public String Password;
+	public LoginRequest() {}
 	public LoginRequest(String username, String password) {
-		super();
 		Username = username;
 		Password = password;
 	}

@@ -1,9 +1,12 @@
 
 package com.example.InventoryManagement.Models;
 
+import java.util.UUID;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-
+@Document(collection= "Inventory")
 public class Inventory {
 	@Id
 	public String ProductId;
@@ -11,22 +14,28 @@ public class Inventory {
 	public String Name;
 	public String Description;
 	public String Price;
+	public String quantity;
 	
-	public Inventory(String productId, String category, String name, String description, String price) {
+	public Inventory( String category, String name, String description, String price, String quantity) {
 		super();
-		ProductId = productId;
+		ProductId = UUID.randomUUID().toString();
 		Category = category;
 		Name = name;
 		Description = description;
 		Price = price;
+		this.quantity = quantity;
 	}
 	
 	public String getProductId() {
 		return ProductId;
 	}
 
-	public void setProductId(String productId) {
-		ProductId = productId;
+	public String getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
 	}
 
 	public String getCategory() {
