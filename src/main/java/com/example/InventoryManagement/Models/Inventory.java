@@ -13,10 +13,10 @@ public class Inventory {
 	public String Category;
 	public String Name;
 	public String Description;
-	public String Price;
-	public String quantity;
+	public int Price;
+	public Integer quantity;
 	
-	public Inventory( String category, String name, String description, String price, String quantity) {
+	public Inventory( String category, String name, String description, int price, Integer quantity) {
 		super();
 		ProductId = UUID.randomUUID().toString();
 		Category = category;
@@ -30,11 +30,11 @@ public class Inventory {
 		return ProductId;
 	}
 
-	public String getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
@@ -62,11 +62,11 @@ public class Inventory {
 		Description = description;
 	}
 
-	public String getPrice() {
+	public int getPrice() {
 		return Price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(int price) {
 		Price = price;
 	}
 

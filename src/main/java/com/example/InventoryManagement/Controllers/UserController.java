@@ -57,9 +57,8 @@ public class UserController {
 		try {
 			return ResponseEntity.ok(userServices.getAllUsers());
 		}catch(Exception e) {
-			System.out.println("Error in retrieving Users: "+e);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return null;
 		
 	}
 
